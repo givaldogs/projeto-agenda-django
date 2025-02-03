@@ -4,6 +4,10 @@
 *.pyc
 __pycache__
 db.sqlite3
+static/
+media/
+project/local_settings.py 
+
 
 # Backup files #
 *.bak
@@ -103,6 +107,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+anotacao.txt 
 
 # mkdocs documentation
 /site
