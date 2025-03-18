@@ -139,7 +139,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # para sobrecrever as variaveis de setting.py, (e utilizado na producao)
 # no servidor tem que criar esse arquivo manualmente
 #
-try:
-    from project.local_settings import *
-except ImportError:
-    ...
+# try:
+#     from project.local_settings import *
+# except ImportError:
+#     ...
