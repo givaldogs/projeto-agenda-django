@@ -34,7 +34,46 @@ git commit -m 'Initial'
 git push agendarepo main -u # erro
 
 # No seu computador local
-# git remote add agendarepo givaldogs@34.57.178.99:~/agendarepo
+# git remote add agendarepo windows-agenda@34.57.178.99:~/agendarepo
 
 git remote add agendarepo usuario@IP_SERVIDOR:~/agendarepo
 git push agendarepo main
+
+# Configurando o Postgresql
+sudo -u postgres psql
+
+postgres=# create role usuario_agenda with login superuser createdb createrole password 'senha_usuario_agenda';
+CREATE ROLE
+postgres=# create database base_de_dados with owner usuario_agenda;
+CREATE DATABASE
+postgres=# grant all privileges on database base_de_dados to usuario_agenda;
+GRANT
+postgres=# \q
+
+sudo systemctl restart postgresql
+
+# Criando o local_settings.py no servidor
+nano ~/agendaapp/project/local_settings.py
+
+# Configurando o Django no servidor   (parei aqui dia 20.03.2025) começar daqui
+cd ~/agendaapp
+python3.11 -m venv venv
+. venv/bin/activate
+pip install --upgrade pip
+pip install django
+pip install pillow
+pip install gunicorn
+pip install psycopg
+pip install faker
+
+python manage.py runserver
+python manage.py migrate
+python manage.py collectstatic
+python manage.py createsuperuser
+
+# Permitir arquivos maiores no nginx
+sudo nano /etc/nginx/nginx.conf
+
+# Adicione em http {}:
+client_max_body_size 30M;
+sudo systemctl restart nginx
